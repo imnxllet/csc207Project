@@ -29,6 +29,7 @@ public class LoginController {
 
         if (user != null && student.getPassword().equals(user.getPassword())) {
             model.addAttribute("student", user);
+            model.addAttribute("message", "sss");
 
             return "studentInfoPage";
         }
