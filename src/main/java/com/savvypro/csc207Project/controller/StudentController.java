@@ -4,38 +4,41 @@ import com.savvypro.csc207Project.entity.Student;
 import com.savvypro.csc207Project.service.StudentService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-@RequestMapping("student")
+@Component
 public class StudentController {
-    private static Student DUMMY_FORM_PLACEHOLDER_STUDENT = new Student();
-
     @Autowired
     private StudentService studentService;
 
-    @PostMapping("/update")
-    public String updateStudent(@ModelAttribute(value="student") Student student, Model model) {
+    public void displayStudent(String username) {
+        Student student = studentService.getStudentByUsername(username);
 
-        Student user = studentService.getStudentByUsername(student.getUsername());
+        String info = String.format("Username: %s \n" +
+                "First Name: %s \n" +
+                "Last Name: %s \n", student.getUsername(),
+                student.getFirstName(), student.getLastName());
+        System.out.println(info);
+    }
+    public boolean updateStudent(Student newStudent) {
+        Student oldStudent = studentService.getStudentByUsername(newStudent.getUsername());
 
-        if (user != null && StringUtils.isAlpha(student.getFirstName())
-                && StringUtils.isAlpha(student.getLastName())) {
-            user.setFirstName(student.getFirstName());
-            user.setLastName(student.getLastName());
+        if (oldStudent != null && StringUtils.isAlpha(newStudent.getFirstName())
+                && StringUtils.isAlpha(newStudent.getLastName())) {
+            oldStudent.setFirstName(newStudent.getFirstName());
+            oldStudent.setLastName(newStudent.getLastName());
 
-            studentService.saveOrUpdate(user);
+            studentService.saveOrUpdate(oldStudent);
 
-            model.addAttribute("student", student);
-
-            return "studentInfoPage";
+            return true;
         }
 
-        model.addAttribute("student", user);
-        model.addAttribute("message", "update failed because name contains symbols or numbers!");
-
-        return "studentInfoPage";
+        return false;
     }
 }
