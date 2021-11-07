@@ -13,7 +13,6 @@ import java.util.Scanner;
  */
 @Component
 public class StudentPortal {
-
     @Autowired
     private StudentController studentController;
 
@@ -36,10 +35,7 @@ public class StudentPortal {
                 String firstName = name[0];
                 String lastName = name[1];
 
-                Student newStudentInfo = new Student();
-                newStudentInfo.setUsername(username);
-                newStudentInfo.setFirstName(firstName);
-                newStudentInfo.setLastName(lastName);
+                Student newStudentInfo = Student.builder().username(username).firstName(firstName).lastName(lastName).build();
 
                 if (studentController.updateStudent(newStudentInfo)) {
                     System.out.println("Student info successfully updated!");
