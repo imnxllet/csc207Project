@@ -8,11 +8,11 @@ spring:
         console.enabled: true
         console.path: /h2
     datasource:
-        url: jdbc:h2:file:C:/data/sample #jdbc:h2:file:/data/sample (Windows only)
+        url: jdbc:h2:file:C:/data/sample/test2 #(for Windows machine)
+        # url: jdbc:h2:./data #(for Mac machine)
         username: sa
         password: password
         driver-class-name: org.h2.Driver
     flyway:
-        baseline-on-migrate: true
-        baselineVersion: 0.0
+        enabled: false #disable flyway auto config in order to make it start after Hibernate created table schema
 
