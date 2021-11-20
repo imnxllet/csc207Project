@@ -1,4 +1,6 @@
 spring:
+    main:
+        banner-mode: "off"
     thymeleaf:
         cache: false
     jpa:
