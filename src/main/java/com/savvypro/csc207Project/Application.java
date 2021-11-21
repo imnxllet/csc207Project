@@ -33,16 +33,15 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         boolean userIsLoggedIn = false;
-        Scanner scanner = new Scanner(System.in);
         Student loggedInStudent = null;
 
         while (true) {
             while (!userIsLoggedIn) {
-                loggedInStudent = login.loginUser(scanner);
+                loggedInStudent = login.loginUser();
                 userIsLoggedIn = loggedInStudent != null;
             }
 
-            studentPortal.showStudentPortal(scanner, loggedInStudent.getUsername());
+            studentPortal.showStudentPortal(loggedInStudent.getUsername());
         }
     }
 }

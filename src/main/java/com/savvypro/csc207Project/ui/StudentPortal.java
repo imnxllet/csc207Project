@@ -16,7 +16,7 @@ public class StudentPortal {
     @Autowired
     private StudentController studentController;
 
-    public void showStudentPortal(Scanner scanner, String username) {
+    public void showStudentPortal(String username) {
         System.out.println("\n\n=== STUDENT PORTAL ===" +
                 "\n1) Type 'profile' to show your student information" +
                 "\n2) Type 'update' to update your info" +
@@ -24,12 +24,15 @@ public class StudentPortal {
                 "\n==================");
 
         printAskForCommandMessage();
+        Scanner scanner = new Scanner(System.in);
+
         String command = scanner.nextLine();
 
         while (!command.equals("exit")) {
             if (command.equals("profile")) {
                 studentController.displayStudent(username);
             } else if (command.equals("update")) {
+
                 System.out.print("Enter first name and last name separated by comma (for example: chris,lu)\n Enter here => ");
                 String[] name = scanner.nextLine().split(",");
                 String firstName = name[0];

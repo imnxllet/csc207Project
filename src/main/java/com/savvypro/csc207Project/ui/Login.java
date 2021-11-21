@@ -14,7 +14,9 @@ import java.util.Scanner;
 public class Login {
     @Autowired
     private LoginController loginController;
-    public Student loginUser(Scanner scanner) {
+    public Student loginUser() {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.print(" Enter user name => ");
         String userName = scanner.nextLine();
 
